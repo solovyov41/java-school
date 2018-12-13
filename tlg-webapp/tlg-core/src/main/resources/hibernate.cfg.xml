@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/tlg?autoReconnect=true&amp;useSSL=false</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+        <mapping class="com.tlg.core.entity.Cargo"/>
+        <mapping class="com.tlg.core.entity.City"/>
+        <mapping class="com.tlg.core.entity.Driver"/>
+        <mapping class="com.tlg.core.entity.Carriage"/>
+        <mapping class="com.tlg.core.entity.Waypoint"/>
+        <mapping class="com.tlg.core.entity.Shift"/>
+        <mapping class="com.tlg.core.entity.User"/>
+        <mapping class="com.tlg.core.entity.Vehicle"/>
+    </session-factory>
+</hibernate-configuration>

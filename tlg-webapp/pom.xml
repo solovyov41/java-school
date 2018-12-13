@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tlg</groupId>
+    <artifactId>tlg-web-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>tlg-database</module>
+        <module>tlg-core</module>
+        <module>tlg-web</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+
+        <slf4j.version>1.7.25</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+
+        <tlg-database.version>1.0-SNAPSHOT</tlg-database.version>
+        <tlg-core.version>1.0-SNAPSHOT</tlg-core.version>
+
+        <!-- Web -->
+        <jsp.version>2.2</jsp.version>
+        <jstl.version>1.2</jstl.version>
+        <servlet.version>3.1.0</servlet.version>
+        <spring-framework-bom.version>5.1.2.RELEASE</spring-framework-bom.version>
+        <spring-security.version>5.1.1.RELEASE</spring-security.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
+        <javax.servlet-api.version>4.0.0</javax.servlet-api.version>
+        <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
+        <webjars-locator.version>0.33</webjars-locator.version>
+        <jquery.version>3.3.1</jquery.version>
+        <!--<bootstrap.version>4.1.3</bootstrap.version>-->
+        <bootstrap.version>4.1.3</bootstrap.version>
+        <font-awesome.version>4.7.0</font-awesome.version>
+        <webjars-servlet-2.x.version>1.5</webjars-servlet-2.x.version>
+        <popper.js.version>1.14.3</popper.js.version>
+        <metisMenu.version>2.7.0</metisMenu.version>
+        <jQuery-slimScroll.version>1.3.8</jQuery-slimScroll.version>
+
+        <commons-beanutils.version>1.9.2</commons-beanutils.version>
+        <org.aspectj.verision>1.9.2</org.aspectj.verision>
+
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-war-plugin.version>3.0.0</maven-war-plugin.version>
+        <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+        <!--tomcat-maven-plugin-->
+        <tomcat7-maven-plugin.url>http://localhost:8080/manager/text</tomcat7-maven-plugin.url>
+        <tomcat7-maven-plugin.server>tomcatserver</tomcat7-maven-plugin.server>
+        <tomcat7-maven-plugin.path>/tlg-webapp</tomcat7-maven-plugin.path>
+        <tomcat7-maven-plugin.username>mavenuser</tomcat7-maven-plugin.username>
+        <tomcat7-maven-plugin.password>admin</tomcat7-maven-plugin.password>
+
+        <!--Core-->
+        <!-- Spring -->
+        <spring-framework.version>5.1.1.RELEASE</spring-framework.version>
+
+        <!-- Hibernate -->
+        <hibernate-version>5.3.7.Final</hibernate-version>
+        <mysql-connector.version>8.0.12</mysql-connector.version>
+
+        <junit-jupiter-engine.version>5.3.1</junit-jupiter-engine.version>
+        <junit.version>4.12</junit.version>
+        <!--ModelMapper-->
+        <modelmapper-spring.version>2.3.0</modelmapper-spring.version>
+        <modelmapper.version>2.3.2</modelmapper.version>
+        <!--FlyWay-->
+        <flyway-maven-plugin.version>5.2.1</flyway-maven-plugin.version>
+        <flyway-core.version>5.2.1</flyway-core.version>
+
+        <!--flyway-plugin-->
+        <db.url>jdbc:mysql://localhost:3306/tlg?useLegacyDatetimeCode=false&amp;serverTimezone=UTC</db.url>
+        <flyway.user>root</flyway.user>
+        <flyway.password>Afacan41</flyway.password>
+        <flyway.schemas>tlg</flyway.schemas>
+        <!--<flyway.location>filesystem:src/main/resources/db/migration</flyway.location>-->
+        <!--<flyway.schema>tlg</flyway.schema>-->
+
+        <jackson-databind.version>2.9.7</jackson-databind.version>
+        <!--ActiveMQ Artemis-->
+        <artemis-jms-client-all.version>2.6.3</artemis-jms-client-all.version>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring-framework-bom.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${org.aspectj.verision}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>TlgWebApp</finalName>
+        <defaultGoal>package</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-maven-plugin</artifactId>
+                    <version>${flyway-maven-plugin.version}</version>
+                    <configuration>
+                        <!--<locations>-->
+                        <!--<location>${flyway.location}</location>-->
+                        <!--</locations>-->
+                        <url>${db.url}</url>
+                        <user>${flyway.user}</user>
+                        <password>${flyway.password}</password>
+                        <!--<schemas>-->
+                        <!--<schema>${flyway.schema}</schema>-->
+                        <!--</schemas>-->
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>${mysql-connector.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>flyway:prepare</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>migrate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>${tomcat7-maven-plugin.version}</version>
+
+                    <configuration>
+                        <url>${tomcat7-maven-plugin.url}</url>
+                        <server>${tomcat7-maven-plugin.server}</server>
+                        <path>${tomcat7-maven-plugin.path}</path>
+                        <username>${tomcat7-maven-plugin.username}</username>
+                        <password>${tomcat7-maven-plugin.password}</password>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+    </build>
+
+</project>
