@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/stellarnav.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.carousel.css">
     <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <%--<link href="${pageContext.request.contextPath}/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">--%>
     <link href="${pageContext.request.contextPath}/webjars/font-awesome/4.7.0/css/font-awesome.min.css"
           rel="stylesheet">
 
@@ -31,7 +32,7 @@
     <link href="${pageContext.request.contextPath}/assets/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/assets/css/responsive.css" rel="stylesheet">
 
-    <script src="${pageContext.request.contextPath}/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body class="home-four">
@@ -237,19 +238,25 @@
 
 
 <!--====== SCRIPTS JS ======-->
-<script src="${pageContext.request.contextPath}/assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+<%--<script src="${pageContext.request.contextPath}/webjars/jquery/3.3.1/jquery.min.js"></script>--%>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<%--<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>--%>
 
 <!--====== PLUGINS JS ======-->
-<script src="${pageContext.request.contextPath}/assets/js/vendor/jquery.easing.1.3.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/jquery-migrate-1.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/vendor/jquery.appear.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.easing.1.3.js"></script>
+<%--<script src="${pageContext.request.contextPath}webjars/jquery/3.3.1/jquery.easing.1.3.js"></script>--%>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<%--<script src="${pageContext.request.contextPath}webjars/jquery/3.3.1/jquery-migrate-1.2.1.min.js"></script>--%>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.appear.js"></script>
+<%--<script src="${pageContext.request.contextPath}webjars/jquery/3.3.1/jquery.appear.js"></script>--%>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.sticky.js"></script>
+<%--<script src="${pageContext.request.contextPath}webjars/jquery/3.3.1/jquery.sticky.js"></script>--%>
 <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/stellar.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/wow.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/stellarnav.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/contact-form.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery.sticky.js"></script>
 
 <!--===== ACTIVE JS=====-->
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>

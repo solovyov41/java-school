@@ -100,6 +100,7 @@
                                                             id="cityName" required="true"
                                                             placeholder="City Name"/>
                                                 <form:errors path="city" cssClass="help-block"/>
+                                                <p id="notice">City not found </p>
                                             </div>
                                         </div>
                                     </spring:bind>

@@ -4,8 +4,19 @@ ymaps.ready(function () {
         zoom: 10
     });
 
-
     drawRoute(myMap);
+
+    let cityInputs = $(":input.city-name");
+    $.each(cityInputs, function (k, v) {
+        let sv = new ymaps.SuggestView(v);
+        sv.events.add('select', function (event) {
+            setTimeout(function () {
+                // searchCity(event, myMap);
+                $(v).change();
+            }, 1500);
+        });
+    });
+
 
     let waypointsArea = $('#waypoints');
     let cargoesArea = $('#cargoes');
@@ -16,6 +27,7 @@ ymaps.ready(function () {
             searchCity(event, myMap);
         }
     });
+
 
     waypointsArea.click(function (event) {
         editRoute(event, waypointsArea)
@@ -95,29 +107,41 @@ function drawRoute(map) {
         }
     }
 
-    // Добавим коллекцию на карту.
-    map.geoObjects.add(cityCollection);
-    // Установим карте центр и масштаб так, чтобы охватить коллекцию целиком.
-    map.setBounds(cityCollection.getBounds());
+    if (cityCollection.getLength() > 0) {
+        // Добавим коллекцию на карту.
+        map.geoObjects.add(cityCollection);
+        // Установим карте центр и масштаб так, чтобы охватить коллекцию целиком.
+        if (cityCollection.getLength() === 1) {
+            map.setBounds(cityCollection.get(0).geometry.getBounds(), {
+                checkZoomRange: true
+            });
+        } else {
+            map.setBounds(cityCollection.getBounds(), {
+                checkZoomRange: true
+            });
+        }
+    }
 
-    // Создаем ломаную с помощью вспомогательного класса Polyline.
-    var myPolyline = new ymaps.Polyline(
-        // Указываем координаты вершин ломаной.
-        route, {
-            // Описываем свойства геообъекта.
-        }, {
-            // Задаем опции геообъекта.
-            // Отключаем кнопку закрытия балуна.
-            // balloonCloseButton: false,
-            // Цвет линии.
-            strokeColor: "#2b33eb",
-            // Ширина линии.
-            strokeWidth: 4,
-            // Коэффициент прозрачности.
-            strokeOpacity: 0.8
-        });
-    // Добавляем линии на карту.
-    map.geoObjects.add(myPolyline);
+    if (route.length > 1) {
+        // Создаем ломаную с помощью вспомогательного класса Polyline.
+        var myPolyline = new ymaps.Polyline(
+            // Указываем координаты вершин ломаной.
+            route, {
+                // Описываем свойства геообъекта.
+            }, {
+                // Задаем опции геообъекта.
+                // Отключаем кнопку закрытия балуна.
+                // balloonCloseButton: false,
+                // Цвет линии.
+                strokeColor: "#2b33eb",
+                // Ширина линии.
+                strokeWidth: 4,
+                // Коэффициент прозрачности.
+                strokeOpacity: 0.8
+            });
+        // Добавляем линии на карту.
+        map.geoObjects.add(myPolyline);
+    }
 }
 
 function searchCity(event, map) {
@@ -138,29 +162,54 @@ function searchCity(event, map) {
         }).then(function (res) {
             // Выбираем первый результат геокодирования.
             let firstGeoObject = res.geoObjects.get(0),
+                error;
+
+            if (firstGeoObject) {
+                switch (firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData.kind')) {
+                    case 'locality':
+                        break;
+                    default:
+                        error = 'Неверно указан населенный пункт, измените название';
+                }
+            } else {
+                error = 'Населенный пункт не найден, измените название';
+            }
+
+            // Если геокодер возвращает пустой массив или неточный результат, то показываем ошибку.
+            if (error) {
+                $(cityNameField).addClass('input_error');
+                latField.val("");
+                lngField.val("");
+                return false;
+            } else {
+                $(cityNameField).removeClass('input_error');
+
                 // Координаты геообъекта.
-                coords = firstGeoObject.geometry.getCoordinates(),
-                // Область видимости геообъекта.
-                bounds = firstGeoObject.properties.get('boundedBy');
+                let coords = firstGeoObject.geometry.getCoordinates();
 
-            // // Получаем строку с адресом и выводим в иконке геообъекта.
-            // firstGeoObject.properties.set('iconCaption', firstGeoObject.getAddressLine());
-            //
-            // firstGeoObject.options.set('preset', 'islands#blueDotIcon');
-            //
-            // // // Добавляем первый найденный геообъект на карту.
-            // map.geoObjects.add(firstGeoObject);
-            // // // Масштабируем карту на область видимости геообъекта.
-            // map.setBounds(bounds, {
-            //     // Проверяем наличие тайлов на данном масштабе.
-            //     checkZoomRange: true
-            // });
+                // // Область видимости геообъекта.
+                // bounds = firstGeoObject.properties.get('boundedBy');
+                // // Получаем строку с адресом и выводим в иконке геообъекта.
+                // firstGeoObject.properties.set('iconCaption', firstGeoObject.getAddressLine());
+                //
+                // firstGeoObject.options.set('preset', 'islands#blueDotIcon');
+                //
+                // // // Добавляем первый найденный геообъект на карту.
+                // map.geoObjects.add(firstGeoObject);
+                // // // Масштабируем карту на область видимости геообъекта.
+                // map.setBounds(bounds, {
+                //     // Проверяем наличие тайлов на данном масштабе.
+                //     checkZoomRange: true
+                // });
 
-            cityNameField.value = firstGeoObject.properties.get('text');
-            latField.val(coords[0]);
-            lngField.val(coords[1]);
+                cityNameField.value = firstGeoObject.properties.get('text');
+                latField.val(coords[0]);
+                lngField.val(coords[1]);
 
-            drawRoute(map);
+                drawRoute(map);
+                return true;
+            }
+
         });
     }
 }
@@ -280,9 +329,6 @@ function editRoute(event, waypointsArea) {
         input.type = "text";
         input.className = "form-control waypoint city-name";
         input.required = true;
-        input.onchange = function (event) {
-            searchCity(event, myMap);
-        };
 
         let posInput = document.createElement("input");
         posInput.type = "hidden";
@@ -297,14 +343,19 @@ function editRoute(event, waypointsArea) {
         lngInput.className = "form-control waypoint longitude";
 
         waypointDiv.appendChild(input);
+        let sv = new ymaps.SuggestView(input);
+        sv.events.add('select', function (event) {
+                $(input).change();
+        });
+
         waypointDiv.appendChild(posInput);
         waypointDiv.appendChild(latInput);
         waypointDiv.appendChild(lngInput);
 
-
         wpBtnsDiv.appendChild(deleteBtn);
         wpBtnsDiv.appendChild(addBtn);
         waypointDiv.appendChild(wpBtnsDiv);
+
         $(event.target).closest(".input-group").after(waypointDiv);
     }
 }

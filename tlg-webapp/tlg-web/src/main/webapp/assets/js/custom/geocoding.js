@@ -28,7 +28,7 @@ ymaps.ready(function () {
         function (event) {
             console.log(event.get('item').value);
 
-            checkCity(event.get('item').value, myMap)
+            checkCity(event.get('item').value, myMap);
         });
     // $("#mainForm").submit(checkForm(event));
 
@@ -67,10 +67,6 @@ function checkCity(value, map) {
     }
 }
 
-function checkForm() {
-
-}
-
 function showResult(obj, map) {
     // Удаляем сообщение об ошибке, если найденный адрес совпадает с поисковым запросом.
     $('#cityName').removeClass('input_error');
@@ -102,9 +98,13 @@ function showResult(obj, map) {
 }
 
 function showError(message) {
+
     $('#notice').text(message);
     $('#cityName').addClass('input_error');
-    $('#notice').show();//css('display', 'block');
+    $('#notice').css('display', 'block');
+    $('#cityLat').val("");
+    $('#cityLng').val("");
+
 }
 
 function createMap(map, state, cityObj) {

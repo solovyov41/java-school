@@ -6,6 +6,7 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ taglib prefix="elements" tagdir="/WEB-INF/tags/elements" %>
 
@@ -88,11 +89,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row"><spring:message code="carriage.initiateDate"/></th>
-                                            <td><c:out value="${carriage.initiateDate}"/></td>
+                                            <td><fmt:formatDate value="${carriage.initiateDate}"
+                                                                pattern="dd.MM.yyyy HH:mm"/></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><spring:message code="carriage.finishDate"/></th>
-                                            <td><c:out value="${carriage.finishDate}"/></td>
+                                            <td><fmt:formatDate value="${carriage.finishDate}"
+                                                                pattern="dd.MM.yyyy HH:mm"/></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><spring:message code="drivers.item"/></th>

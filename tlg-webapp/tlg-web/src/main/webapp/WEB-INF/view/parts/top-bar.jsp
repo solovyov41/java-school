@@ -4,41 +4,22 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!-- Top Bar Start -->
-<div class="topbar">
+<nav class="navbar navbar-expand-lg navbar-dark" style="z-index: 99; background-color: #353535;">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/account">TLG Web</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- LOGO -->
-    <div class="topbar-left">
-        <div class="">
-            <a href="${pageContext.request.contextPath}/account" class="logo logo-lg">
-                TLG Web
-            </a>
-        </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off" aria-hidden="true"></i>
+                    <spring:message code="login.logout"/> <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+
     </div>
-
-    <!-- Top navbar -->
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container justify-content-end">
-            <div class="">
-                <!-- Top nav Right menu -->
-                <ul class="nav navbar-nav navbar-right top-navbar-items-right pull-right">
-
-                    <li class="dropdown top-menu-item-xs">
-                        <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown"
-                           aria-expanded="true">
-                            <img src="${pageContext.request.contextPath}/assets/img/users/avatar-1.jpg" alt="user-img"
-                                 class="img-circle">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/account/profile"><i
-                                    class="ti-user m-r-10"></i> <spring:message code="profile.item"/></a></li>
-                            <li class="divider"></li>
-                            <li><a href="${pageContext.request.contextPath}/logout"><i class="ti-power-off m-r-10"></i>
-                                <spring:message code="login.logout"/></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div> <!-- end container -->
-    </div> <!-- end navbar -->
-</div>
+</nav>
 <!-- Top Bar End -->

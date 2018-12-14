@@ -5,6 +5,7 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="pageCtx" value="${pageContext.request.contextPath}"/>
 
@@ -84,8 +85,10 @@
                                                     href="${pageCtx}/manager/carriage/${carriage.uniqueNumber}">
                                                 <c:out value="${carriage.uniqueNumber}"/></a></th>
                                             <td><c:out value="${carriage.customerName}"/></td>
-                                            <td><c:out value="${carriage.initiateDate}"/></td>
-                                            <td><c:out value="${carriage.finishDate}"/></td>
+                                            <td><fmt:formatDate value="${carriage.initiateDate}"
+                                                                pattern="dd.MM.yyyy HH:mm"/></td>
+                                            <td><fmt:formatDate value="${carriage.finishDate}"
+                                                                pattern="dd.MM.yyyy HH:mm"/></td>
                                             <td><spring:message code="${carriage.status.messageCode()}"/></td>
                                             <td>
                                                 <a href="${pageCtx}/manager/vehicle/${carriage.vehicle.licPlateNum}">

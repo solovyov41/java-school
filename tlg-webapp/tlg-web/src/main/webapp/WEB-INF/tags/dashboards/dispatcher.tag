@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@attribute name="notAssignOrderList" required="true" type="java.util.List" %>
 <%@attribute name="inWorkOrderList" required="true" type="java.util.List" %>
@@ -41,8 +42,10 @@
                             href="${pageContext.request.contextPath}/manager/carriage/${carriage.uniqueNumber}">
                         <c:out value="${carriage.uniqueNumber}"/></a></th>
                     <td><c:out value="${carriage.customerName}"/></td>
-                    <td><c:out value="${carriage.initiateDate}"/></td>
-                    <td><c:out value="${carriage.finishDate}"/></td>
+                    <td><fmt:formatDate value="${carriage.initiateDate}"
+                                        pattern="dd.MM.yyyy HH:mm"/></td>
+                    <td><fmt:formatDate value="${carriage.finishDate}"
+                                        pattern="dd.MM.yyyy HH:mm"/></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -66,8 +69,10 @@
                             href="${pageContext.request.contextPath}/manager/carriage/${carriage.uniqueNumber}">
                         <c:out value="${carriage.uniqueNumber}"/> </a></th>
                     <td><c:out value="${carriage.customerName}"/></td>
-                    <td><c:out value="${carriage.initiateDate}"/></td>
-                    <td><c:out value="${carriage.finishDate}"/></td>
+                    <td><fmt:formatDate value="${carriage.initiateDate}"
+                                        pattern="dd.MM.yyyy HH:mm"/></td>
+                    <td><fmt:formatDate value="${carriage.finishDate}"
+                                        pattern="dd.MM.yyyy HH:mm"/></td>
                 </tr>
             </c:forEach>
             </tbody>
