@@ -126,12 +126,12 @@ public class UserServiceImpl implements UserService {
     public boolean delete(String email) throws ServiceException {
         try {
             User user = userDao.findByEmail(email);
-            if (user != null) {
-                userDao.delete(user);
-                return true;
-            }
-            return false;
+            userDao.delete(user);
+            return true;
         } catch (DaoException ex) {
+            if (ex.getError() == DaoError.NO_RESULT) {
+                return false;
+            }
             throw new ServiceException(ex, ServiceError.DELETE_ERROR, "email", email, "User");
         }
     }

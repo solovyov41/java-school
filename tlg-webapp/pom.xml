@@ -168,7 +168,6 @@
                     </dependencies>
                     <executions>
                         <execution>
-                            <id>flyway:prepare</id>
                             <phase>install</phase>
                             <goals>
                                 <goal>clean</goal>

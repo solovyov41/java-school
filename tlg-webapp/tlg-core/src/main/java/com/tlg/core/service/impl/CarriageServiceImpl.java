@@ -348,6 +348,7 @@ public class CarriageServiceImpl implements CarriageService {
 
             if (isLast) {
                 carriage.setStatus(CarriageStatus.DONE);
+                carriage.setFinishDate(new Date());
                 driverService.unassignDrivers(carriage);
                 vehicleService.unassignVehicle(carriage);
             }

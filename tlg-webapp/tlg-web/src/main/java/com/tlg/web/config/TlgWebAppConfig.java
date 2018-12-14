@@ -1,5 +1,7 @@
 package com.tlg.web.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tlg.core.config.CoreConfig;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
@@ -15,6 +19,10 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 @EnableWebMvc
 @ComponentScan({"com.tlg.web"})
@@ -78,4 +86,21 @@ public class TlgWebAppConfig implements WebMvcConfigurer {
         validator.setValidationMessageSource(messageSource());
         return validator;
     }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        final ObjectMapper objectMapper = new ObjectMapper();
+
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        objectMapper.setDateFormat(df);
+
+        converter.setObjectMapper(objectMapper);
+        converters.add(converter);
+        WebMvcConfigurer.super.configureMessageConverters(converters);
+    }
+
+
 }

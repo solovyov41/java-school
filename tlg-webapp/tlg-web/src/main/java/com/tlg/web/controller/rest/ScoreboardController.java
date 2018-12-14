@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest")
-public class DashboardController {
+public class ScoreboardController {
 
     @Autowired
     VehicleService vehicleService;
