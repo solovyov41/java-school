@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+
+        <h1>TGL Dashboard</h1>
+
+        <div class="p-grid p-justify-between p-align-center">
+            <div class="p-col">
+                <h2>Drivers Total Info</h2>
+                <h:panelGroup id="driverStatistics">
+                    <div class="p-grid p-justify-even p-align-center">
+                        <div class="p-col">
+                            <p:panel header="Total">
+                                <h:outputText id="dTotal" value="#{driverStat.total}"/>
+                            </p:panel>
+                        </div>
+                        <div class="p-col">
+                            <p:panel header="Working">
+                                <h:outputText value="#{driverStat.inWork}"/>
+                            </p:panel>
+                        </div>
+                        <div class="p-col">
+                            <p:panel header="Free">
+                                <h:outputText value="#{driverStat.free}"/>
+                            </p:panel>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </div>
+            <div class="p-col">
+                <h2>Vehicles Total Info</h2>
+                <h:panelGroup id="vehicleStatistics">
+                <div class="p-grid p-justify-even p-align-center">
+                    <div class="p-col">
+                        <p:panel header="Total">
+                            <h:outputText value="#{vehicleStat.total}"/>
+                        </p:panel>
+                    </div>
+                    <div class="p-col">
+                        <p:panel header="Working">
+                            <h:outputText value="#{vehicleStat.inWork}"/>
+                        </p:panel>
+                    </div>
+                    <div class="p-col">
+                        <p:panel header="Free">
+                            <h:outputText value="#{vehicleStat.free}"/>
+                        </p:panel>
+                    </div>
+                    <div class="p-col">
+                        <p:panel header="Broken">
+                            <h:outputText value="#{vehicleStat.broken}"/>
+                        </p:panel>
+                    </div>
+                </div>
+                </h:panelGroup>
+            </div>
+        </div>
+
+        <h2>Recent orders</h2>
+        <h:panelGroup rendered="#{empty orders}">
+            <em>No orders.</em>
+        </h:panelGroup>
+        <h:panelGroup id="orders">
+        <h:dataTable id="ordersTable" var="_order" value="#{orders}" rendered="#{not empty orders}"
+                     styleClass="simpletablestyle">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                #{_order.uniqueNumber}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Customer</f:facet>
+                #{_order.customerName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{_order.status}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Initiate date</f:facet>
+                #{_order.initiateDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Route</f:facet>
+                <ui:repeat value="#{ _order.waypoints}" var="wp">
+                    <p><h:outputText value="->#{wp.city}"/></p>
+                </ui:repeat>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cargoes</f:facet>
+                <ui:repeat value="#{ _order.cargoes}" var="crg">
+                    <ul>
+                    <li><h:outputText value="#{crg.number}:#{crg.name} - #{crg.state}"/></li>
+                    </ul>
+                </ui:repeat>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Vehicle</f:facet>
+                #{_order.vehicle.licPlateNum}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cargoes</f:facet>
+                <ui:repeat value="#{ _order.drivers}" var="dvr">
+                    <h:outputText value="#{dvr.personalNum}:#{dvr.status} #{dvr.surname} #{dvr.name} "/>
+                </ui:repeat>
+            </h:column>
+        </h:dataTable>
+        </h:panelGroup>
+        <!--<h:form>-->
+        <!--<f:websocket channel="push">-->
+        <!--<f:ajax event="driverStatUpdate" render=":driverStatistics"/>-->
+        <!--</f:websocket>-->
+        <!--&lt;!&ndash;<f:ajax event="ordersUpdate" render=":ordersTable"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<f:ajax event="vehicleStatUpdate" render=":vehicleStatistics"/>&ndash;&gt;-->
+        <!--</h:form>-->
+
+        <div hidden="hidden">
+        <h:form>
+            <o:socket channel="push">
+                <f:ajax event="driverStatUpdate" render=":driverStatistics"/>
+                <f:ajax event="vehicleStatUpdate" render=":vehicleStatistics"/>
+                <f:ajax event="ordersUpdate" render=":orders"/>
+            </o:socket>
+        </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
